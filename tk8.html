@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bài tập TK8: Chuyển đổi màu Hex sang RGB</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 30px;
+            background-color: #fff5f5; /* Nền hồng/đỏ nhạt */
+        }
+        .box {
+            max-width: 450px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.15);
+            border-top: 5px solid #dc3545; /* Viền đỏ phía trên */
+        }
+        h2 {
+            color: #dc3545; /* Tiêu đề màu đỏ */
+        }
+        input[type="text"] {
+            width: 90%;
+            padding: 10px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            outline: none;
+        }
+        input[type="text"]:focus {
+            border-color: #dc3545;
+            box-shadow: 0 0 5px rgba(220, 53, 69, 0.3);
+        }
+        button {
+            background-color: #dc3545; /* Nút bấm màu đỏ */
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+        button:hover {
+            background-color: #c82333; /* Đỏ đậm hơn khi rê chuột */
+        }
+        .result {
+            margin-top: 15px;
+            padding: 12px;
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            border-radius: 4px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #856404;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box">
+        <h2>Bài tập TK8: Chuyển đổi màu Hex sang RGB</h2>
+        <p>Nhập mã màu Hex (Ví dụ: <code>#FF0000</code>)[cite: 3]:</p>
+        <input type="text" id="hexInput" placeholder="#FF0000" value="#FF0000">
+        <br>
+        <button onclick="handleHexToRgb()">Chuyển đổi</button>
+        <div class="result" id="result">Kết quả: (Chưa chuyển đổi)</div>
+    </div>
+
+    <script>
+        // Hàm chuyển đổi mã Hex sang RGB
+        function hexToRgb(hex) {
+            hex = hex.replace('#', '').trim();
+
+            // Xử lý định dạng ngắn gọn (3 ký tự, ví dụ: "F00" -> "FF0000")
+            if (hex.length === 3) {
+                hex = hex.split('').map(char => char + char).join('');
+            }
+
+            if (hex.length !== 6) {
+                throw new Error("Mã Hex không hợp lệ");
+            }
+
+            const r = parseInt(hex.substring(0, 2), 16);
+            const g = parseInt(hex.substring(2, 4), 16);
+            const b = parseInt(hex.substring(4, 6), 16);
+			return `rgb(${r}, ${g}, ${b})`;
+        }
+
+        // Sự kiện khi bấm nút
+        function handleHexToRgb() {
+            const hexVal = document.getElementById('hexInput').value;
+            try {
+                const rgbVal = hexToRgb(hexVal);
+                document.getElementById('result').innerText = "Kết quả: " + rgbVal;
+            } catch (error) {
+                document.getElementById('result').innerText = "Lỗi: Mã Hex không đúng định dạng!";
+            }
+        }
+    </script>
+
+</body>
+</html>
